@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option csharp_namespace = "InventoryService";
+
+package inventory;
+
+service Inventory {
+  rpc CheckStock (CheckStockRequest) returns (CheckStockReply);
+}
+
+message CheckStockRequest {
+  int32 item_id = 1;
+}
+
+message CheckStockReply {
+  int32 in_stock = 1;
+}
