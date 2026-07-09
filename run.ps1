@@ -21,3 +21,7 @@ Write-Host "  curl -k https://localhost:5001/catalog/1"
 Write-Host "  curl -k https://localhost:5001/user/42"
 Write-Host "  curl -k https://localhost:5001/inventory/5"
 
+Write-Host "Waiting a few seconds for services to start up..."
+Start-Sleep -Seconds 4
+Write-Host "Opening the dashboard in your default browser..."
+Start-Process "https://localhost:5001/index.html"
