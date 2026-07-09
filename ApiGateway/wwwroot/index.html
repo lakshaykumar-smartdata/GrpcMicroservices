@@ -345,7 +345,7 @@
 <body>
 
     <h1>Microservices Gateway</h1>
-    <p class="subtitle">Demonstrating API Gateway routing to isolated gRPC backend services</p>
+    <p class="subtitle">Demonstrating API Gateway routing to isolated REST Proxy backend services</p>
 
     <!-- Interactive Architecture Diagram -->
     <div class="architecture-diagram">
@@ -538,7 +538,7 @@
             document.getElementById('label-rest').classList.remove('active');
             document.getElementById('node-client').classList.remove('active');
             
-            // 3. Gateway processes and initiates gRPC
+            // 3. Gateway processes and initiates REST Proxy
             document.getElementById('node-gateway').classList.add('active');
             await sleep(400);
 
@@ -691,3 +691,4 @@
     </script>
 </body>
 </html>
+

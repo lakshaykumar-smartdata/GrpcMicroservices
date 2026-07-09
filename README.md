@@ -49,3 +49,4 @@ If you prefer to test via `curl` or Postman, the API Gateway exposes the followi
 - `POST https://localhost:5001/order` (Body: `{ "itemId": 1, "quantity": 2 }`)
 - `GET https://localhost:5001/inventory/{id}`
 - `GET https://localhost:5001/user/{id}`
+

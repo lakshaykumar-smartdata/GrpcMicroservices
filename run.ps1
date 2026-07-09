@@ -20,3 +20,4 @@ Write-Host "Examples:"
 Write-Host "  curl -k https://localhost:5001/catalog/1"
 Write-Host "  curl -k https://localhost:5001/user/42"
 Write-Host "  curl -k https://localhost:5001/inventory/5"
+
