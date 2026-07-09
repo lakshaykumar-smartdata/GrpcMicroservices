@@ -1,8 +1,9 @@
-using InventoryService.Services;
-
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddGrpc();
 var app = builder.Build();
-app.MapGrpcService<InventoryServiceImpl>();
-app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client.");
+
+app.MapGet("/inventory/{id:int}", (int id) =>
+{
+    return Results.Ok(new { inStock = true, quantity = Random.Shared.Next(10, 100), message = $"Inventory checked for item {id}" });
+});
+
 app.Run();

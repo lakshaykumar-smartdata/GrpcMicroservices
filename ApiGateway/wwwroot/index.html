@@ -370,10 +370,10 @@
         </div>
         
         <div class="connection">
-            <div class="connection-label" id="label-grpc">gRPC / HTTP/2</div>
+            <div class="connection-label" id="label-proxy">HTTP/REST Proxy</div>
             <div class="line-container">
-                <div class="pulse" id="pulse-grpc-fwd"></div>
-                <div class="pulse" id="pulse-grpc-bwd" style="left: auto;"></div>
+                <div class="pulse" id="pulse-proxy-fwd"></div>
+                <div class="pulse" id="pulse-proxy-bwd" style="left: auto;"></div>
             </div>
         </div>
         
@@ -398,8 +398,8 @@
                     <code class="route-url" id="url-catalog-gw">GET /catalog/{id}</code>
                 </div>
                 <div class="route-step" style="margin-top: 10px;">
-                    <span class="route-label">Backend API (gRPC)</span>
-                    <code class="route-url">POST /catalog.Catalog/GetItem</code>
+                    <span class="route-label">Backend API (REST)</span>
+                    <code class="route-url">GET /catalog/{id}</code>
                 </div>
             </div>
 
@@ -424,8 +424,8 @@
                     <code class="route-url">POST /order</code>
                 </div>
                 <div class="route-step" style="margin-top: 10px;">
-                    <span class="route-label">Backend API (gRPC)</span>
-                    <code class="route-url">POST /order.Order/PlaceOrder</code>
+                    <span class="route-label">Backend API (REST)</span>
+                    <code class="route-url">POST /order</code>
                 </div>
             </div>
 
@@ -454,8 +454,8 @@
                     <code class="route-url" id="url-inventory-gw">GET /inventory/{id}</code>
                 </div>
                 <div class="route-step" style="margin-top: 10px;">
-                    <span class="route-label">Backend API (gRPC)</span>
-                    <code class="route-url">POST /inventory.Inventory/CheckStock</code>
+                    <span class="route-label">Backend API (REST)</span>
+                    <code class="route-url">GET /inventory/{id}</code>
                 </div>
             </div>
 
@@ -480,8 +480,8 @@
                     <code class="route-url" id="url-user-gw">GET /user/{id}</code>
                 </div>
                 <div class="route-step" style="margin-top: 10px;">
-                    <span class="route-label">Backend API (gRPC)</span>
-                    <code class="route-url">POST /user.User/GetUser</code>
+                    <span class="route-label">Backend API (REST)</span>
+                    <code class="route-url">GET /user/{id}</code>
                 </div>
             </div>
 
@@ -542,17 +542,17 @@
             document.getElementById('node-gateway').classList.add('active');
             await sleep(400);
 
-            // 4. gRPC request to Backend
-            document.getElementById('label-grpc').classList.add('active');
-            document.getElementById('label-grpc').textContent = targetConfig.grpcLabel;
+            // 4. Proxy request to Backend
+            document.getElementById('label-proxy').classList.add('active');
+            document.getElementById('label-proxy').textContent = targetConfig.proxyLabel;
             
-            const pGrpcFwd = document.getElementById('pulse-grpc-fwd');
-            pGrpcFwd.classList.remove('fwd-active');
-            void pGrpcFwd.offsetWidth;
-            pGrpcFwd.classList.add('fwd-active');
+            const pProxyFwd = document.getElementById('pulse-proxy-fwd');
+            pProxyFwd.classList.remove('fwd-active');
+            void pProxyFwd.offsetWidth;
+            pProxyFwd.classList.add('fwd-active');
             
             await sleep(800);
-            document.getElementById('label-grpc').classList.remove('active');
+            document.getElementById('label-proxy').classList.remove('active');
             document.getElementById('node-gateway').classList.remove('active');
 
             // 5. Backend receives and processes
@@ -572,17 +572,17 @@
             // Ensure processing animation takes at least 1s
             await sleep(1000);
 
-            // 6. gRPC Response
-            document.getElementById('label-grpc').classList.add('active');
-            document.getElementById('label-grpc').textContent = 'gRPC Response';
+            // 6. Backend Response
+            document.getElementById('label-proxy').classList.add('active');
+            document.getElementById('label-proxy').textContent = 'JSON Response';
             
-            const pGrpcBwd = document.getElementById('pulse-grpc-bwd');
-            pGrpcBwd.classList.remove('bwd-active');
-            void pGrpcBwd.offsetWidth;
-            pGrpcBwd.classList.add('bwd-active');
+            const pProxyBwd = document.getElementById('pulse-proxy-bwd');
+            pProxyBwd.classList.remove('bwd-active');
+            void pProxyBwd.offsetWidth;
+            pProxyBwd.classList.add('bwd-active');
 
             await sleep(800);
-            document.getElementById('label-grpc').classList.remove('active');
+            document.getElementById('label-proxy').classList.remove('active');
             document.getElementById('node-backend').classList.remove('active');
 
             // 7. Gateway receives and converts
@@ -630,7 +630,7 @@
                     icon: '📦',
                     port: 'Port: 5011',
                     restLabel: `GET /catalog/${id}`,
-                    grpcLabel: 'GetItem (gRPC)',
+                    proxyLabel: `GET /catalog/${id}`,
                     fetchCall: () => fetch(`/catalog/${id}`)
                 };
             } 
@@ -642,7 +642,7 @@
                     icon: '🛒',
                     port: 'Port: 5021',
                     restLabel: `POST /order`,
-                    grpcLabel: 'PlaceOrder (gRPC)',
+                    proxyLabel: `POST /order`,
                     fetchCall: () => fetch(`/order`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -658,7 +658,7 @@
                     icon: '🏭',
                     port: 'Port: 5031',
                     restLabel: `GET /inventory/${id}`,
-                    grpcLabel: 'CheckStock (gRPC)',
+                    proxyLabel: `GET /inventory/${id}`,
                     fetchCall: () => fetch(`/inventory/${id}`)
                 };
             }
@@ -670,7 +670,7 @@
                     icon: '👤',
                     port: 'Port: 5041',
                     restLabel: `GET /user/${id}`,
-                    grpcLabel: 'GetUser (gRPC)',
+                    proxyLabel: `GET /user/${id}`,
                     fetchCall: () => fetch(`/user/${id}`)
                 };
             }
